@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout') {
+            steps {
+                echo 'Hello checkout'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/flamyjg1/javascript-prroject.git']])
+            }
+        }
+         stage('build') {
+            steps {
+                echo 'Hello build'
+                bat 'npm install'
+            }
+        }
+         stage('test') {
+            steps {
+                echo 'Hello test'
+                bat 'npm test'
+            }
+        }
+    }
+}
